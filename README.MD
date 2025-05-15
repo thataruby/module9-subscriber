@@ -17,3 +17,8 @@ The URI guest:guest@localhost:5672 is used to connect to the AMQP server by incl
 - 5672 = the default port used by the AMQP server.
 
 This URI indicates that the client will establish a connection to a server running on the local machine through port 5672, using the default guest as both the username and password.
+
+> Simulation slow
+ 
+![Simulation Slow](images/simulation_slow.png)
+In my machine, the number of visible queues is 2, which indicates that only two queues were created and used during the program's execution. It also shows that there are 24 unacked messages, meaning these messages are still waiting to be processed by the subscriber. This likely happened because in the implementation, the subscriber introduces a 1-second delay (thread::sleep) when processing each message. As a result, when the publisher sends messages quickly, the queue becomes backed up because the subscriber consumes messages much more slowly, leading to a high number of pending messages even though there are still only two queues.
