@@ -22,3 +22,9 @@ This URI indicates that the client will establish a connection to a server runni
  
 ![Simulation Slow](images/simulation_slow.png)
 In my machine, the number of visible queues is 2, which indicates that only two queues were created and used during the program's execution. It also shows that there are 24 unacked messages, meaning these messages are still waiting to be processed by the subscriber. This likely happened because in the implementation, the subscriber introduces a 1-second delay (thread::sleep) when processing each message. As a result, when the publisher sends messages quickly, the queue becomes backed up because the subscriber consumes messages much more slowly, leading to a high number of pending messages even though there are still only two queues.
+
+> Running Three Subscribers
+ 
+![terminal_3](images/terminal_3.png)
+![rabbit_3](images/rabbit_3.png)
+On my machine, 3 subscribers were run simultaneously, and the system shows that only two queues were created. The messages were evenly distributed and processed quickly, resulting in no unacknowledged messages and no buildup in the message queues. The spike in the message rate chart corresponds to when the publisher was run several times, and each subscriber successfully printed messages such as "Dira", "Emir", and "Cica" in parallel. The result demonstrates an event-driven structure where the publisher does not care who the receivers are, and the resulting behavior can change depending on how many subscribers are active.git
